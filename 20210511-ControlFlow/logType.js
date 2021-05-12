@@ -16,10 +16,14 @@ function logType(arg) {
         console.log("bigint!");
     } else if (typeof arg === "function") {
         console.log("funtion!");
+        // } else if (Array.isArray(arg)) {
+        //     console.log("array!");
     } else if (typeof arg === "object") {
-        console.log("object!");
-    } else if (Array.isArray(arg)) {
-        console.log("array!");
+        if (Array.isArray(arg)) {
+            console.log("array!");
+        } else {
+            console.log("object!");
+        }
     } else {
         console.log("I have no idea!");
     }
