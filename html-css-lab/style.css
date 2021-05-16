@@ -65,7 +65,9 @@ header {
 .infobox {
     display: inline-block;
     height: 120px;
+    margin-left: 20px;
     /* width: 400px; */
+    /* width: 40%; */
 }
 
 .infobox div {
@@ -97,8 +99,9 @@ footer p {
     margin: 0px;
 }
 
+/* Small screens */
 
-@media screen and (max-width: 400px) { 
+@media screen and (max-width: 400px) {
     header {
         height: 50px;
     }
@@ -128,42 +131,69 @@ footer p {
         font-size: 16px;
         font-weight: 500px;
         padding: 7px 30px;
-        border: 3px solid chocolate;
-        border-radius: 30px;
     }
 
     #infos {
         font-size: 14px;
         text-align: left;
     }
-    
+
     .infobox {
         /* width: 400px; */
         height: 80px;
         margin: 0px;
         padding: 0px;
-
     }
-    
+
     .infobox div {
         display: inline-block;
         margin: 1px;
     }
-    
+
     .infobox p {
         margin: 10px 3px;
     }
-    
+
     .infoboximage {
         height: 30px;
         margin: 10px;
     }
 }
 
-@media screen and (max-width: 360px) { 
-    
+/* REALLY small screens */
+
+@media screen and (max-width: 360px) {
     #infos {
         font-size: 12px;
     }
+}
 
+/* DARK MODE */
+
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: rgb(29, 29, 29);
+    }
+
+    header {
+        background-color: rgb(29, 29, 29);
+    }
+
+    #landing {
+        background-image: linear-gradient(
+                rgba(28, 28, 28, 0.75),
+                rgba(28, 28, 28, 0.75)
+            ),
+            url("spices.jpg");
+    }
+
+    #mainbtn {
+        color: chocolate;
+        background-color: rgb(29, 29, 29);
+    }
+
+    #infos {
+        background-color: rgb(29, 29, 29);
+        color: white;
+    }
 }
