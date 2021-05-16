@@ -1,3 +1,7 @@
+body {
+    margin: 0;
+}
+
 header {
     padding-top: 20px;
     position: relative;
@@ -35,6 +39,8 @@ header {
 
 #welcome {
     padding-top: 200px;
+    padding-left: 50px;
+    padding-right: 50px;
 }
 
 #mainbtn {
@@ -51,7 +57,7 @@ header {
 #infos {
     background-color: rgb(160, 160, 160);
     color: black;
-    height: 320px;
+    /* height: 320px; */
     font-size: 16px;
     text-align: center;
 }
@@ -59,7 +65,7 @@ header {
 .infobox {
     display: inline-block;
     height: 120px;
-    width: 400px;
+    /* width: 400px; */
 }
 
 .infobox div {
@@ -89,4 +95,75 @@ footer {
 
 footer p {
     margin: 0px;
+}
+
+
+@media screen and (max-width: 400px) { 
+    header {
+        height: 50px;
+    }
+
+    #logo {
+        height: 30px;
+    }
+
+    #menu {
+        height: 35px;
+    }
+
+    #landing {
+        height: 350px;
+        font-size: 16px;
+        font-weight: 300;
+        margin-top: 0px;
+    }
+
+    #welcome {
+        padding-top: 100px;
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+
+    #mainbtn {
+        font-size: 16px;
+        font-weight: 500px;
+        padding: 7px 30px;
+        border: 3px solid chocolate;
+        border-radius: 30px;
+    }
+
+    #infos {
+        font-size: 14px;
+        text-align: left;
+    }
+    
+    .infobox {
+        /* width: 400px; */
+        height: 80px;
+        margin: 0px;
+        padding: 0px;
+
+    }
+    
+    .infobox div {
+        display: inline-block;
+        margin: 1px;
+    }
+    
+    .infobox p {
+        margin: 10px 3px;
+    }
+    
+    .infoboximage {
+        height: 30px;
+        margin: 10px;
+    }
+}
+
+@media screen and (max-width: 360px) { 
+    
+    #infos {
+        font-size: 12px;
+    }
+
 }
