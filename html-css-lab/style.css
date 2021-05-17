@@ -76,6 +76,10 @@ header {
     vertical-align: top;
 }
 
+.infotext {
+    width: 250px;
+}
+
 .infobox p {
     margin: 10px 3px;
     text-align: left;
