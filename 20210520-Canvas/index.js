@@ -1,7 +1,12 @@
 (function () {
     var cnv = document.querySelector("#canvas");
+    var bigCnv = document.querySelector("#bigCanvas");
 
     var ctx = cnv.getContext("2d");
+    var bigCtx = bigCnv.getContext("2d");
+
+    var canvasX = 0;
+    var canvasY = 0;
 
     ctx.lineWidth = 3;
     ctx.strokeStyle = "orange";
@@ -24,8 +29,35 @@
     ctx.lineTo(500, 600); // Right leg
     ctx.stroke();
 
-    // ctx.drawImage(document.querySelector("canvas"));
-    document.addEventListener("dblclick", function () {
-        ctx.clearRect(0, 0, 400, 400);
+    bigCtx.drawImage(cnv, canvasX, canvasY);
+
+    function clearCanvas() {
+        bigCtx.clearRect(0, 0, bigCnv.width, bigCnv.height);
+    }
+
+    document.addEventListener("keydown", function (event) {
+        console.log("keystroke:", event.key);
+        switch (event.key) {
+            case "ArrowUp":
+                canvasY -= 10;
+                clearCanvas();
+                bigCtx.drawImage(cnv, canvasX, canvasY);
+                break;
+            case "ArrowDown":
+                canvasY += 10;
+                clearCanvas();
+                bigCtx.drawImage(cnv, canvasX, canvasY);
+                break;
+            case "ArrowRight":
+                canvasX += 10;
+                clearCanvas();
+                bigCtx.drawImage(cnv, canvasX, canvasY);
+                break;
+            case "ArrowLeft":
+                canvasX -= 10;
+                clearCanvas();
+                bigCtx.drawImage(cnv, canvasX, canvasY);
+                break;
+        }
     });
 })();

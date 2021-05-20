@@ -1,5 +1,12 @@
-canvas {
+#canvas {
     border: 5px solid blue;
+    margin-top: 100px;
+    margin-left: 30%;
+    display: none;
+}
+
+#bigCanvas {
+    border: 5px solid green;
     margin-top: 100px;
     margin-left: 30%;
 }
