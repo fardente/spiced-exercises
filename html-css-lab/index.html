@@ -6,9 +6,16 @@
     <title>Spiced</title>
 </head>
 <body>
+    <nav>
+    <ul>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Contact</a></li>
+        <li><a href="#">Settings</a></li>
+    </ul>
+    </nav>
     <header>
         <img id="logo" src="spiced.png" alt="Spiced Logo">
-        <img id="menu" src="hamburgermenu.svg" alt="Hamburger Menu">
+        <img class="can-toggle-nav" id="menu" src="hamburgermenu.svg" alt="Hamburger Menu">
     </header>
     <section id="landing">
         <div id="welcome">
@@ -68,5 +75,7 @@
     <footer>
         <p>&copy; 2016 Some Organization</p>
     </footer>
+    <div class="backdrop can-toggle-nav"></div>
+    <script src="index.js"></script>
 </body>
 </html>
