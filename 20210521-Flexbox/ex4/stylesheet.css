@@ -1,0 +1,59 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    display: flex;
+}
+
+div {
+    display: flex;
+    width: 200px;
+    height: 200px;
+    margin: 2px;
+}
+
+#greydiv {
+    justify-content: flex-end;
+    background-color: grey;
+}
+
+p {
+    width: 100px;
+    height: 100px;
+}
+
+#orangep {
+    background-color: orange;
+}
+
+#blackdiv {
+    justify-content: flex-end;
+    align-items: flex-end;
+    background-color: black;
+}
+
+#yellowp {
+    background-color: yellow;
+}
+
+#bluediv {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
+    background-color: blue;
+}
+
+#greenp {
+    background-color: green;
+}
+
+#purplediv {
+    justify-content: flex-start;
+    background-color: purple;
+}
+
+#pinkp {
+    background-color: pink;
+}
