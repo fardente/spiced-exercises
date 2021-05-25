@@ -6,13 +6,16 @@ var dots = carousel.querySelectorAll(".dot");
 var kittyIndex = 0;
 var nextKittyIndex = 1;
 
-var delay = 500;
+var delay = 2000;
 
 var timer;
 var animating;
 
+var swipeStart;
+var swipeEnd;
+
 function moveKitties() {
-    console.log("KI", kittyIndex, "nKI", nextKittyIndex);
+    // console.log("KI", kittyIndex, "nKI", nextKittyIndex);
     exit(kitties[kittyIndex]);
     moveOnScreen(kitties[nextKittyIndex]);
     updateDots();
@@ -47,7 +50,6 @@ function toggleDot(dot) {
 
 carousel.addEventListener("transitionend", function (event) {
     // if the kitty entered, do nothing
-    console.log("transition ended", timer);
     if (!event.target.classList.contains("exit")) {
         // early return
         return;
@@ -61,8 +63,29 @@ carousel.addEventListener("transitionend", function (event) {
     }, delay);
 });
 
+carousel.addEventListener("touchstart", function (event) {
+    // console.log(event, "event touch");
+    // console.log(event.touches[0].clientX, "clientx");
+    swipeStart = event.touches[0].clientX;
+});
+
+carousel.addEventListener("touchend", function (event) {
+    // console.log(event, "event end");
+    // console.log(event.changedTouches[0].clientX, "clientx");
+    swipeEnd = event.changedTouches[0].clientX;
+    if (swipeEnd - swipeStart < -50) {
+        console.log("swiped right");
+        clearTimeout(timer);
+        if (!animating) {
+            timer = setTimeout(function () {
+                moveKitties();
+            }, 0);
+        }
+    }
+});
+
 dots.forEach(function (element, index) {
-    console.log(element, index);
+    // console.log(element, index);
     element.addEventListener("click", dotClickHandler(index));
 });
 
