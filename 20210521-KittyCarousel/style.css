@@ -70,3 +70,25 @@
 .dots li.current {
     background-color: lavender;
 }
+
+@media screen and (max-width: 450px) {
+    .carousel {
+        height: 100vh;
+    }
+
+    /* .kitty {
+        background-size: contain;
+        background-repeat: no-repeat;
+    } */
+}
+
+@media screen and (max-height: 450px) {
+    .carousel {
+        height: 100vh;
+    }
+
+    /* .kitty {
+        background-size: contain;
+        background-repeat: no-repeat;
+    } */
+}
