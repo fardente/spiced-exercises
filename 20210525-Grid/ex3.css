@@ -1,0 +1,52 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    display: flex;
+}
+
+div {
+    display: grid;
+    grid: 1fr 1fr / 1fr 1fr;
+    width: 200px;
+    height: 200px;
+    margin: 2px;
+}
+
+#greydiv {
+    background-color: grey;
+}
+
+#orangep {
+    background-color: orange;
+    grid-column-start: 2;
+}
+
+#blackdiv {
+    background-color: black;
+}
+
+#yellowp {
+    background-color: yellow;
+    grid-column: 2;
+    grid-row: 2;
+}
+
+#bluediv {
+    background-color: blue;
+}
+
+#greenp {
+    background-color: green;
+    grid-row: 2;
+}
+
+#purplediv {
+    background-color: purple;
+}
+
+#pinkp {
+    background-color: pink;
+}

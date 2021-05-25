@@ -1,0 +1,14 @@
+body {
+    margin: 0;
+    display: grid;
+    min-height: 100vh;
+    grid-template-rows: 70px 1fr 30px;
+}
+
+header {
+    background-color: coral;
+}
+
+footer {
+    background-color: darkblue;
+}
