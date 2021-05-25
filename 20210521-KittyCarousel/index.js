@@ -1,41 +1,27 @@
-//get carousel by id
-// get kitties carousel.querysel...
-// var kittyIndex = 0
-// function moveKitties(){
-//kitties[kittyIndex].classlist.remove(onscreen)
-// kitties[kittyIndex].classList.add('exit');
-// kitties[kittyIndex+1].classList.add('onscreen')
-//}
-// listen for end of transition
-//carousel.addeventlistener('transitionend', function(event){
-//  event.target -> toggle class
-// if (!event.target.classlist.contains("exit")) return
-// event.target.classlist.remove("exit")
-// kittyIndex++;
-//moveKitties();
-//})
-
 var carousel = document.getElementById("carousel");
 // var kitties = carousel.querySelectorAll(".kitty");
 var kitties = carousel.getElementsByClassName("kitty");
-var dots = carousel.getElementsByClassName("dot");
+var dots = carousel.querySelectorAll(".dot");
 
 var kittyIndex = 0;
 var nextKittyIndex = 1;
 
 var delay = 500;
 
+var timer;
+var animating;
+
 function moveKitties() {
     console.log("KI", kittyIndex, "nKI", nextKittyIndex);
     exit(kitties[kittyIndex]);
     moveOnScreen(kitties[nextKittyIndex]);
     updateDots();
+    animating = true;
+    kittyIndex = nextKittyIndex;
 
     if (nextKittyIndex >= kitties.length - 1) {
-        kittyIndex = nextKittyIndex;
         nextKittyIndex = 0;
     } else {
-        kittyIndex = nextKittyIndex;
         nextKittyIndex++;
     }
 }
@@ -61,21 +47,35 @@ function toggleDot(dot) {
 
 carousel.addEventListener("transitionend", function (event) {
     // if the kitty entered, do nothing
+    console.log("transition ended", timer);
     if (!event.target.classList.contains("exit")) {
         // early return
         return;
     }
     // else, put it back to the right hidden pile
     event.target.classList.remove("exit");
-
+    animating = false;
     // slide to the next kitty after {delay} ms
-    setTimeout(function () {
+    timer = setTimeout(function () {
         moveKitties();
     }, delay);
 });
 
-function dotClickHandler() {}
+dots.forEach(function (element, index) {
+    console.log(element, index);
+    element.addEventListener("click", dotClickHandler(index));
+});
+
+function dotClickHandler(idx) {
+    return function () {
+        clearTimeout(timer);
+        nextKittyIndex = idx;
+        if (!animating) {
+            timer = setTimeout(function () {
+                moveKitties();
+            }, delay);
+        }
+    };
+}
 
 setTimeout(moveKitties, delay);
-
-// toggle("current", kittyIndex === index);
