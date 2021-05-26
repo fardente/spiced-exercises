@@ -24,7 +24,8 @@ function update() {
     var firstLinkWidth = +firstLink.css("width").slice(0, -2);
     if (position <= -firstLinkWidth) {
         position += firstLinkWidth;
-        container.append(firstLink);
+        // container.append(firstLink);
+        firstLink.appendTo(container);
     }
     container.css({ left: position + "px" }); //container.style.left = position + "px";
     frameId = requestAnimationFrame(update);
