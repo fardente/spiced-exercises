@@ -1,0 +1,44 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.pane {
+    height: 480px;
+    width: 640px;
+    overflow: hidden;
+    position: relative;
+    margin: 40px 40px;
+    background-color: darkblue;
+    user-select: none;
+}
+
+.pane .img {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    overflow: hidden;
+}
+
+.pane .img.after {
+    background-color: hotpink;
+    width: 75%;
+}
+
+.pane .img.before {
+    background-color: lawngreen;
+}
+
+.slider {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 75%;
+    width: 10px;
+    cursor: ew-resize;
+    background-color: grey;
+    opacity: 0.5;
+}
