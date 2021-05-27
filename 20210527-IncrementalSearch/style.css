@@ -1,0 +1,45 @@
+* {
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+#inputWrapper {
+    position: relative;
+    width: 350px;
+}
+
+#searchBox {
+    width: 100%;
+}
+
+#resultBox {
+    position: absolute;
+}
+
+.noResults {
+    background-color: rgb(255, 41, 18);
+    color: rgb(70, 8, 8);
+    padding: 7px;
+    border: 1px dotted rgb(70, 8, 8);
+    cursor: cell;
+}
+
+.result {
+    background-color: honeydew;
+    color: mediumseagreen;
+    padding: 7px;
+    border: 1px dotted limegreen;
+    cursor: cell;
+}
+
+.result.highlight {
+    background-color: darkslategray;
+    color: green;
+}
