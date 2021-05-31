@@ -1,0 +1,30 @@
+body {
+    margin: 0;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+}
+
+.result {
+    margin-bottom: 5px;
+    font-size: 12px;
+}
+
+button {
+    margin-top: 15px;
+}
+
+.error {
+    background-color: crimson;
+    color: darkred;
+}
+
+.valid {
+    background-color: greenyellow;
+    color: green;
+}
