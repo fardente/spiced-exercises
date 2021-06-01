@@ -1,32 +1,41 @@
-var container = $("#headlines"); //document.getElementById("headlines");
-var links = $("a"); //document.getElementsByTagName("a");
+$.get("/links.json", function (data) {
+    var links = data;
+    var container = $("#headlines");
 
-var frameId;
-var position = container.position().left;
-var SPEED = 2;
+    $.each(links, function (link, title) {
+        // console.log(link, title);
+        container.append('<a href="' + link + '">' + title + "</a>");
+    });
 
-links.on("mouseover", function (event) {
-    $(this).addClass("stop");
-    //event.target.style.textDecoration = "underline";
-    cancelAnimationFrame(frameId);
-});
+    links = $("a"); //document.getElementsByTagName("a");
 
-links.on("mouseleave", function (event) {
-    $(this).removeClass("stop");
-    frameId = requestAnimationFrame(update);
-});
+    var frameId;
+    var position = container.position().left;
+    var SPEED = 2;
 
-update();
+    links.on("mouseover", function (event) {
+        $(this).addClass("stop");
+        //event.target.style.textDecoration = "underline";
+        cancelAnimationFrame(frameId);
+    });
 
-function update() {
-    position -= SPEED;
-    var firstLink = container.find("a").eq(0);
-    var firstLinkWidth = +firstLink.css("width").slice(0, -2);
-    if (position <= -firstLinkWidth) {
-        position += firstLinkWidth;
-        // container.append(firstLink);
-        firstLink.appendTo(container);
+    links.on("mouseleave", function (event) {
+        $(this).removeClass("stop");
+        frameId = requestAnimationFrame(update);
+    });
+
+    update();
+
+    function update() {
+        position -= SPEED;
+        var firstLink = container.find("a").eq(0);
+        var firstLinkWidth = +firstLink.css("width").slice(0, -2);
+        if (position <= -firstLinkWidth) {
+            position += firstLinkWidth;
+            // container.append(firstLink);
+            firstLink.appendTo(container);
+        }
+        container.css({ left: position + "px" }); //container.style.left = position + "px";
+        frameId = requestAnimationFrame(update);
     }
-    container.css({ left: position + "px" }); //container.style.left = position + "px";
-    frameId = requestAnimationFrame(update);
-}
+});
