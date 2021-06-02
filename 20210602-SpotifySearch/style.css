@@ -1,0 +1,50 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+}
+
+header {
+    background-color: chartreuse;
+    text-align: center;
+    padding: 20px;
+}
+
+header form {
+    margin: 10px;
+}
+
+.result-title {
+    margin: 20px;
+}
+
+.item {
+    list-style: none;
+    margin-bottom: 50px;
+    height: 200px;
+}
+
+.item img {
+    height: 200px;
+    width: 200px;
+    margin-right: 50px;
+    vertical-align: middle;
+}
+
+.item a {
+    color: green;
+}
+
+.load-more-button {
+    display: none;
+    background-color: green;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 20px;
+    padding: 10px;
+}
+
+p {
+    text-align: center;
+    margin-bottom: 30px;
+}
