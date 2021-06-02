@@ -4,6 +4,9 @@ var $resultBox = $("#resultBox");
 
 var API_URL = "https://spicedworld.herokuapp.com/";
 
+var THROTTLE_INTERVAL = 200;
+var timerID;
+
 function getSuggestions() {
     var input = $searchBox.val();
     if (input == "") {
@@ -55,7 +58,12 @@ function checkHighlight() {
     return $(".highlight").length > 0;
 }
 
-$searchBox.on("input", getSuggestions);
+$searchBox.on("input", function () {
+    if (timerID) {
+        clearTimeout(timerID);
+    }
+    timerID = setTimeout(getSuggestions, THROTTLE_INTERVAL);
+});
 
 // In JQUERY possible to use event delegeation by using 2nd parameter ! NOTE!
 $inputWrapper.on("mouseover", ".result", function (event) {
@@ -86,7 +94,10 @@ $inputWrapper.on("mousedown", ".noResults", function (event) {
 
 $searchBox.on("focus", function (event) {
     // checkInput();
-    getSuggestions();
+    // getSuggestions();
+    if ($searchBox.val() != "") {
+        showResults();
+    }
     console.log("focuss");
 });
 
