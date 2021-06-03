@@ -1,9 +1,9 @@
 console.log("Spotify search!");
 
-// define your constants
+var useInfiniteScroll = location.search.indexOf("scroll=infinite") > -1;
+
 var API_URL = "https://spicedify.herokuapp.com/spotify";
 
-// cache your DOM selectors
 var $form = $("form");
 var $input = $form.find("input");
 var $type = $form.find("select");
@@ -11,28 +11,22 @@ var $resultList = $(".result-list");
 var $resultTitle = $(".result-title");
 var $moreButton = $(".load-more-button");
 
-// define your global variables
 var nextURL = null;
 var q = null;
 var type = null;
+var BOTTOM_OFFSET = 100; // how much leeway to reach bottom for toggling infinite scroll
 
-// define your reusable functions
 function extractInfoFromData(data) {
-    // if data contains the artists key, return data.artists
-    // else, return data.albums
     if (data.artists) {
         return data.artists;
     }
     return data.albums;
 }
 
-// you need this to "fix" the spotify response
-// because it still has its own URL references
 function replaceURLName(spotifyURL) {
     return spotifyURL.replace("https://api.spotify.com/v1/search", API_URL);
 }
 
-//
 function renderResults(results) {
     console.log(results);
     if (results.length < 1) {
@@ -65,6 +59,37 @@ function renderResults(results) {
         $li.addClass("item");
         $resultList.append($li);
     });
+}
+
+function reachedBottom() {
+    var pageHeight = $(document).height();
+    var windowSize = $(window).height();
+    var position = $(document).scrollTop();
+    var threshold = pageHeight - windowSize;
+    return position >= threshold - BOTTOM_OFFSET;
+}
+
+function checkScrollPos() {
+    console.log("polling position");
+    if (reachedBottom()) {
+        console.log("Reached Bottom, fetching more results");
+        $.ajax({
+            url: replaceURLName(nextURL),
+            success: function (data) {
+                var result = extractInfoFromData(data);
+                renderResults(result.items);
+                if (result.next) {
+                    console.log("there are more results to load");
+                    nextURL = result.next;
+                    setTimeout(checkScrollPos, 500);
+                } else {
+                    console.log("no more results");
+                }
+            },
+        });
+    } else {
+        setTimeout(checkScrollPos, 500);
+    }
 }
 
 $moreButton.on("click", function () {
@@ -110,7 +135,11 @@ $form.on("submit", function (event) {
             renderResults(result.items);
             if (result.next) {
                 nextURL = result.next;
-                $moreButton.show();
+                if (useInfiniteScroll) {
+                    checkScrollPos();
+                } else {
+                    $moreButton.show();
+                }
             }
         },
     });
