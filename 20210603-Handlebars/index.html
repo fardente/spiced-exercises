@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="style.css" />
+        <title>Handlebars</title>
+    </head>
+    <body>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js"></script>
+
+        <script id="book" type="text/x-handlebars-template">
+            <div class="authors">
+
+                {{#each authors}}
+                    <div class="author">
+                        <div class="photo" style="background-image: url('{{photo}}');">
+                            <p class="quote">"{{quote}}"</p>
+                        </div>
+                        <div class="details">
+                            <div class="personal"><p><strong>{{name}}</strong>
+                                    ({{born}}
+                                    -
+                                    {{died}})</p></div>
+                            <div class="works">
+                                <ul>
+                                    {{#selectedWritings}}
+                                        <li>{{.}}</li>
+                                    {{/selectedWritings}}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                {{/each}}
+            </div>
+        </script>
+
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+        <script src="index.js"></script>
+    </body>
+</html>
