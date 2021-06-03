@@ -16,6 +16,14 @@ var q = null;
 var type = null;
 var BOTTOM_OFFSET = 100; // how much leeway to reach bottom for toggling infinite scroll
 
+Handlebars.templates = Handlebars.templates || {};
+var templates = document.querySelectorAll(
+    'script[type="text/x-handlebars-template"]'
+);
+Array.prototype.slice.call(templates).forEach(function (script) {
+    Handlebars.templates[script.id] = Handlebars.compile(script.innerHTML);
+});
+
 function extractInfoFromData(data) {
     if (data.artists) {
         return data.artists;
@@ -29,37 +37,64 @@ function replaceURLName(spotifyURL) {
 
 function renderResults(results) {
     console.log(results);
+
     if (results.length < 1) {
         var $noResults = $("<h3></h3>");
         $noResults.text("No Results!");
         $resultList.append($noResults);
+        return;
     }
 
     results.forEach(function (result) {
-        // create the appropriate elements, e.g. var $img = $('<img></img>');
-        // fill them with the right info, e.g. $img.attr('src', result.images[0].url)
-        // (beware: some results may have no images array!)
-        // append them to the $resultList
         var imgUrl;
         if (result.images.length < 1) {
             imgUrl = "https://via.placeholder.com/200";
-        } else {
-            imgUrl = result.images[0].url;
+            result.images = [];
+            result.images.push({ url: imgUrl });
+            console.log("image", result);
         }
-
-        $li = $(
-            "<li><a target=_blank href='" +
-                result.external_urls.spotify +
-                "'><img src='" +
-                imgUrl +
-                "'>" +
-                result.name +
-                "</a></li>"
-        );
-        $li.addClass("item");
-        $resultList.append($li);
     });
+
+    $resultList.append(
+        Handlebars.templates.results({
+            results: results,
+        })
+    );
 }
+
+// function renderResultsWithoutHandlebars(results) {
+//     console.log(results);
+//     if (results.length < 1) {
+//         var $noResults = $("<h3></h3>");
+//         $noResults.text("No Results!");
+//         $resultList.append($noResults);
+//     }
+
+//     results.forEach(function (result) {
+//         // create the appropriate elements, e.g. var $img = $('<img></img>');
+//         // fill them with the right info, e.g. $img.attr('src', result.images[0].url)
+//         // (beware: some results may have no images array!)
+//         // append them to the $resultList
+//         var imgUrl;
+//         if (result.images.length < 1) {
+//             imgUrl = "https://via.placeholder.com/200";
+//         } else {
+//             imgUrl = result.images[0].url;
+//         }
+
+//         $li = $(
+//             "<li><a target=_blank href='" +
+//                 result.external_urls.spotify +
+//                 "'><img src='" +
+//                 imgUrl +
+//                 "'>" +
+//                 result.name +
+//                 "</a></li>"
+//         );
+//         $li.addClass("item");
+//         $resultList.append($li);
+//     });
+// }
 
 function reachedBottom() {
     var pageHeight = $(document).height();
@@ -116,6 +151,8 @@ $moreButton.on("click", function () {
 
 $form.on("submit", function (event) {
     event.preventDefault();
+    nextURL = "";
+    $moreButton.hide();
     q = $input.val();
     type = $type.val();
     $.ajax({

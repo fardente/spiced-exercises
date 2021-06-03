@@ -26,10 +26,25 @@
                     <button type="submit">Search</button>
                 </form>
             </header>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js"></script>
 
             <section class="results">
                 <h2 class="result-title"></h2>
-                <ul class="result-list"></ul>
+                <ul class="result-list">
+                    <script id="results" type="text/x-handlebars-template">
+                        <ul class="result-list"></ul>
+                        {{#results}}
+                            <li class="item">
+                                <a
+                                    href="{{external_urls.spotify}}"
+                                    target="_blank"
+                                ><img src="{{images.0.url}}" alt="" />{{name}}
+                                </a>
+                            </li>
+
+                        {{/results}}
+                    </script>
+                </ul>
                 <p>
                     <button class="load-more-button">More</button>
                 </p>
