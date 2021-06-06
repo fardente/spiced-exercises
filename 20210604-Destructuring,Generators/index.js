@@ -59,3 +59,45 @@ var hamburg = { name: "Hamburg", country: "Germany" };
 var london = { name: "London", country: "England" };
 
 console.log(getRelocatedCity(london, hamburg));
+
+// Generators:
+
+// Fizzbuzz
+
+function* fizzbuzz() {
+    for (var i = 1; i <= 100; i++) {
+        if (i % 3 == 0) {
+            if (i % 5 == 0) {
+                yield "fizzbuzz";
+            } else {
+                yield "fizz";
+            }
+        } else {
+            if (i % 5 == 0) {
+                yield "buzz";
+            } else {
+                console.log(i);
+            }
+        }
+    }
+}
+
+for (var i of fizzbuzz()) {
+    console.log(i);
+}
+
+// EX 2:
+
+function* reverseArrayGenerator(arr) {
+    var tempArr = arr.slice();
+    for (var i of arr) {
+        yield tempArr.pop();
+    }
+}
+
+var arry = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+var g = reverseArrayGenerator(arry);
+
+for (var i of g) {
+    console.log(i);
+}
