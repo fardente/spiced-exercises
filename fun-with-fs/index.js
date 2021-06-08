@@ -13,13 +13,37 @@ function logSizes(dirPath) {
             let filePath = path.join(dirPath, file.name);
             if (file.isDirectory()) {
                 logSizes(filePath);
-            } else {
-                fs.stat(filePath, (err, stats) => {
-                    console.log(filePath, ": ", stats.size);
-                });
+                return;
             }
+            fs.stat(filePath, (error, stats) => {
+                if (error) {
+                    console.log("Stats error", error);
+                }
+                console.log(filePath, ": ", stats.size);
+            });
         });
     });
 }
 
 logSizes(folder);
+
+function mapSizes(dirPath) {
+    let tree = {};
+    let files = fs.readdirSync(dirPath, { withFileTypes: true });
+
+    files.forEach((file) => {
+        let filePath = path.join(dirPath, file.name);
+        if (file.isDirectory()) {
+            tree[file.name] = mapSizes(filePath);
+            return;
+        }
+        let { size } = fs.statSync(filePath);
+        tree[file.name] = size;
+    });
+    return tree;
+}
+
+const folderMap = mapSizes(folder);
+const folderMapStringy = JSON.stringify(folderMap, null, 4);
+
+fs.writeFileSync("files.json", folderMapStringy);
