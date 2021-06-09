@@ -35,14 +35,28 @@ const server = http.createServer((request, response) => {
                     response.setHeader("Content-type", "text/html");
                     break;
                 case "GET":
-                    let body = `<!doctype html>
+                    response.statusCode = 200;
+                    if (url == "/requests.txt") {
+                        response.setHeader("Content-type", "text/plain");
+                        console.log("Someone is trying to get reguests.txt");
+                        var readableStream = fs.createReadStream(
+                            path.join(__dirname, "requests.txt")
+                        );
+
+                        readableStream.on("error", (error) => {
+                            console.log("error on readableStream", error);
+                        });
+                        readableStream.pipe(response);
+                    } else {
+                        response.setHeader("Content-type", "text/html");
+                        let body = `<!doctype html>
                         <html>
                         <title>Hello World!</title>
                         <p>Hello World!</p>
                         </html>`;
-                    response.statusCode = 200;
-                    response.setHeader("Content-type", "text/html");
-                    response.write(body);
+                        response.write(body);
+                        response.end();
+                    }
                     break;
                 case "POST":
                     console.log(request.body);
@@ -52,8 +66,6 @@ const server = http.createServer((request, response) => {
                 default:
                     response.statusCode = 405;
             }
-
-            response.end();
         });
 });
 
