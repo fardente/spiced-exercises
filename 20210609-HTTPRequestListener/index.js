@@ -1,9 +1,12 @@
 const http = require("http");
+const fs = require("fs");
+const path = require("path");
 
 const server = http.createServer((request, response) => {
     console.log("incoming request");
 
     let { method, url, headers } = request;
+    logRequest(method, url, headers["user-agent"]);
     console.log(
         `Method: ${method}\nURL: ${url}\nHeader: ${JSON.stringify(
             headers,
@@ -26,10 +29,10 @@ const server = http.createServer((request, response) => {
             body += chunk;
         })
         .on("end", function () {
-            console.log(body); //logs the entire request body
             switch (method) {
                 case "HEAD":
                     response.statusCode = 200;
+                    response.setHeader("Content-type", "text/html");
                     break;
                 case "GET":
                     let body = `<!doctype html>
@@ -55,3 +58,15 @@ const server = http.createServer((request, response) => {
 });
 
 server.listen(8080);
+
+function logRequest(method, url, userAgent) {
+    const filePath = path.join(__dirname, "requests.txt");
+    const date = new Date();
+    let text = `${date}\t${method}\t${url}\t${userAgent}\n`;
+
+    fs.appendFile(filePath, text, (error) => {
+        if (error) {
+            console.log(`Error writing to file ${filePath}`);
+        }
+    });
+}
