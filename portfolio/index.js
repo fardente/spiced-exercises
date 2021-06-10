@@ -1,6 +1,7 @@
 const http = require("http");
 const fs = require("fs");
 const path = require("path");
+const listDirHTML = require("./projects");
 
 const projectDir = "/projects";
 
@@ -35,6 +36,14 @@ const server = http.createServer((request, response) => {
     if (method != "GET") {
         response.statusCode = 405;
         return response.end();
+    }
+
+    if (url == "/") {
+        const html = listDirHTML(__dirname + projectDir);
+        // console.log(html);
+        response.statusCode = 200;
+        response.setHeader("Content-type", "text/html");
+        response.end(html);
     }
 
     if (!normalizedPath.startsWith(__dirname + projectDir)) {
