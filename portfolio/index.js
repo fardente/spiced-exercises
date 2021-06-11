@@ -14,6 +14,7 @@ const contentTypes = {
     ".jpg": "image/jpeg",
     ".png": "image/png",
     ".svg": "image/svg+xml",
+    ".ico": "image/x-ico",
 };
 
 const server = http.createServer((request, response) => {
@@ -43,7 +44,13 @@ const server = http.createServer((request, response) => {
         // console.log(html);
         response.statusCode = 200;
         response.setHeader("Content-type", "text/html");
-        response.end(html);
+        return response.end(html);
+    }
+
+    if (url == "/favicon.ico") {
+        response.statusCode = 200;
+        serveFile(__dirname + "/favicon.ico");
+        return;
     }
 
     if (!normalizedPath.startsWith(__dirname + projectDir)) {

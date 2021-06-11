@@ -18,7 +18,7 @@ function listDirHTML(dir) {
 }
 
 function makeHTML(element) {
-    const html = `<li><a href=${element.name}>${element.name}</a></li>\n`;
+    const html = `<li><a target="_blank" href=${element.name}>${element.name}</a></li>\n`;
     return html;
 }
 
