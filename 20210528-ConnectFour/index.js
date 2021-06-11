@@ -13,6 +13,9 @@ var colIndex;
 
 var victory;
 
+var draw;
+var turnCount = 0;
+
 function getRowIndex($slot) {
     return $slot.index();
 }
@@ -199,6 +202,12 @@ function announceWin() {
     $(".modal-text").text(playerColor + " won!");
 }
 
+function announceDraw() {
+    showModal();
+    $(".modal-text").css("color", "blue");
+    $(".modal-text").text("DRAW!");
+}
+
 function showModal() {
     $(".modal-wrapper").addClass("show");
     var modalBtn = $("#modalBtn");
@@ -226,6 +235,11 @@ $board.find(".column").on("click", function () {
     checkWin(getSlotsSWNE($slot));
     if (victory) {
         announceWin();
+    }
+    turnCount++;
+    console.log("Turn #", turnCount);
+    if (turnCount == 42) {
+        announceDraw();
     }
 
     switchPlayer();
