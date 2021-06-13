@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="style.css">
+    <title>Spiced</title>
+</head>
+<body>
+    <nav>
+    <ul>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Contact</a></li>
+        <li><a href="#">Settings</a></li>
+    </ul>
+    </nav>
+    <header>
+        <img id="logo" src="spiced.png" alt="Spiced Logo">
+        <img class="can-toggle-nav" id="menu" src="hamburgermenu.svg" alt="Hamburger Menu">
+    </header>
+    <section id="landing">
+        <div id="welcome">
+            <h1>Welcome to SPICED and the Future.</h1>
+            <button id="mainbtn">Get Started</button>
+        </div>
+    </section>
+    <section id="infos">
+        <div class="infobox">
+            <div>
+                <img class="infoboximage" src="cat.svg" alt="Cat">
+            </div>
+            <div class="infotext">
+                <p><strong>Best-in-class Features</strong><br>
+                Nobody does this stuff better than us.<br>
+                You can bet your life on that.
+                </p>
+            </div>
+        </div>
+        <div class="infobox">
+            <div>
+                <img class="infoboximage" src="world.svg" alt="Cat">
+            </div>
+            <div class="infotext">
+                <p><strong>Reliable Service</strong><br>
+                You can count on us to help you<br>
+                whenever you need it. We're talking<br>
+                round the clock service.
+                </p>
+            </div>
+        </div>
+        <br>
+        <div class="infobox">
+            <div>
+                <img class="infoboximage" src="swim.svg" alt="Swim">
+            </div>
+            <div class="infotext">
+                <p><strong>An Acquired Taste.</strong><br>
+                It may take a little while for you to<br>
+                warm up to us but once you do you<br>
+                will never want to switch.
+                </p>
+            </div>
+        </div>
+        <div class="infobox"> 
+            <div>
+                <img class="infoboximage" src="columns.svg" alt="Columns">
+            </div>
+            <div class="infotext">
+            <p><strong>No Limits</strong><br>
+            There are absolutely no limits. We do<br>
+            not throttle. Wo do not cap.
+            </p>
+            </div>
+        </div>
+    </section>
+    <footer>
+        <p>&copy; 2016 Some Organization</p>
+    </footer>
+        <div class="modal-wrapper">
+        <div class="modal"><p class="modal-close">&#10005;</p>
+            <h2>Welcome to our redesigned site!</h2>
+            <p>Would you like a tour of our new features?</p>
+            <p>By the way, this site uses cookies to track every little thing you do 
+                <br>and if you're here we assume you're okay with that!</p>
+        </div>
+    </div>
+    <div class="backdrop can-toggle-nav"></div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="index.js"></script>
+</body>
+</html>
