@@ -1,0 +1,36 @@
+body {
+    background: linear-gradient(rgb(240, 254, 255), rgb(90, 216, 255));
+    height: 100vh;
+    /* overflow: hidden; */
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+a {
+    color: orangered;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+a:visited {
+    color: orangered;
+}
+
+.container {
+    height: 70%;
+    margin: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-around;
+}
+
+.project {
+    margin: 10px 1px;
+    text-align: center;
+}
+
+.project img {
+    width: 250px;
+    margin-top: 10px;
+}

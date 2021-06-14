@@ -1,9 +1,13 @@
-var express = require("express");
+const express = require("express");
+const hb = require("express-handlebars");
 const listDirHTML = require("./projects");
 const basicAuth = require("basic-auth");
 const path = require("path");
+const projectData = require("./projectData.json");
 
 var app = express();
+app.engine("handlebars", hb());
+app.set("view engine", "handlebars");
 
 app.use(
     express.urlencoded({
@@ -77,7 +81,13 @@ function checkCookies(request, response, next) {
 
 app.get("/", function (request, response) {
     console.log("went to /");
-    response.send(listDirHTML(__dirname + "/projects"));
+    // response.send(listDirHTML(__dirname + "/projects"));
+    response.render("index", {
+        title: "My Portfolio",
+        heading: "Welcome to my portfolio",
+        subheading: "Enjoy the fruits of my hard work!",
+        projectData,
+    });
 });
 
 function checkAuth(request, response, next) {
@@ -85,7 +95,7 @@ function checkAuth(request, response, next) {
     const credentials = basicAuth(request);
     if (credentials) {
         const { name, pass } = credentials;
-        if (name === "admin2" && pass === "letmein") {
+        if (name === "admin" && pass === "letmein") {
             next();
             return;
         }

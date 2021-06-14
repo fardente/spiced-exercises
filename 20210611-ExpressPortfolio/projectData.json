@@ -1,0 +1,22 @@
+[
+    {
+        "title": "Stickman",
+        "dir": "stickman"
+    },
+    {
+        "title": "Kitty Carousel",
+        "dir": "20210521-KittyCarousel"
+    },
+    {
+        "title": "Connect Four",
+        "dir": "20210528-ConnectFour"
+    },
+    {
+        "title": "Ticker",
+        "dir": "ticker"
+    },
+    {
+        "title": "Ticker using jQuery",
+        "dir": "ticker-jquery"
+    }
+]
