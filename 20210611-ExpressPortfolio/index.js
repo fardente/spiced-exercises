@@ -1,8 +1,7 @@
 var express = require("express");
-var cookieParser = require("cookie-parser");
 const listDirHTML = require("./projects");
-const { response } = require("express");
 const basicAuth = require("basic-auth");
+const path = require("path");
 
 var app = express();
 
@@ -12,7 +11,6 @@ app.use(
     })
 );
 
-app.use(checkAuth);
 app.use(require("cookie-parser")());
 
 app.get("/cookie", function (request, response) {
@@ -39,14 +37,6 @@ app.get("/cookie", function (request, response) {
     }
 });
 
-app.get("/", function (request, response) {
-    response.send(listDirHTML(__dirname + "/projects"));
-});
-
-app.get("/stickman", checkAuth, function (request, response) {
-    response.send(listDirHTML(__dirname + "/projects"));
-});
-
 app.post("/cookie", function (request, response) {
     console.log(
         "submitted something via post",
@@ -70,7 +60,7 @@ app.post("/cookie", function (request, response) {
         `);
     }
 });
-
+app.use(checkCookies);
 function checkCookies(request, response, next) {
     const isUserLogged = request.cookies.returning;
     console.log(isUserLogged, "logged");
@@ -78,17 +68,24 @@ function checkCookies(request, response, next) {
         console.log("logged in");
         next();
         return;
+    } else {
+        response.cookie("url", request.url);
+        console.log("redirecting");
+        response.redirect("/cookie");
     }
-    response.cookie("url", request.url);
-    console.log("redirecting");
-    response.redirect("/cookie");
 }
 
+app.get("/", function (request, response) {
+    console.log("went to /");
+    response.send(listDirHTML(__dirname + "/projects"));
+});
+
 function checkAuth(request, response, next) {
+    console.log("checking auth");
     const credentials = basicAuth(request);
     if (credentials) {
         const { name, pass } = credentials;
-        if (name === "admin" && pass === "letmein") {
+        if (name === "admin2" && pass === "letmein") {
             next();
             return;
         }
@@ -100,6 +97,12 @@ function checkAuth(request, response, next) {
     response.sendStatus(401);
 }
 
-app.use(checkCookies);
-app.use(express.static(__dirname + "/projects"));
+app.get("/stickman", checkAuth, function (request, response) {
+    response.sendFile(
+        path.join(__dirname, "/projects", "/stickman", "/index.html")
+    );
+});
+
+app.use(express.static(path.join(__dirname, "/projects")));
+
 app.listen(8080);
