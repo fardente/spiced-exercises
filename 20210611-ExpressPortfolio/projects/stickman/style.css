@@ -1,0 +1,57 @@
+body {
+    padding: 150px 300px;
+}
+
+.head {
+    height: 100px;
+    width: 100px;
+    border: 5px solid black;
+    border-radius: 50%;
+    transform: translateX(300px);
+}
+
+.neck {
+    height: 50px;
+    width: 0;
+    border: 5px solid black;
+    transform: translateX(350px);
+}
+
+.arm {
+    height: 0;
+    width: 150px;
+    border: 5px solid black;
+}
+
+.arm:first-of-type {
+    border: 5px solid black;
+    transform: translateX(205px) translateY(-40px) rotate(30deg);
+}
+
+.arm:nth-of-type(2) {
+    transform: translateX(345px) translateY(-50px) rotate(-30deg);
+    border: 5px solid black;
+}
+
+.torso {
+    width: 0;
+    height: 150px;
+    border: 5px solid black;
+    transform: translateX(350px) translateY(-20px);
+}
+
+.leg {
+    height: 0;
+    width: 150px;
+    border: 5px solid black;
+}
+
+.leg:first-of-type {
+    border: 5px solid black;
+    transform: translateX(205px) translateY(10px) rotate(-30deg);
+}
+
+.leg:last-of-type {
+    transform: translateX(345px) translateY(0px) rotate(30deg);
+    border: 5px solid black;
+}
