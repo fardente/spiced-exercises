@@ -9,6 +9,12 @@ var app = express();
 app.engine("handlebars", hb());
 app.set("view engine", "handlebars");
 
+app.locals.helpers = {
+    checkActive: function (dir1, dir2) {
+        return dir1 == dir2;
+    },
+};
+
 app.use(
     express.urlencoded({
         extended: false,
@@ -114,5 +120,33 @@ app.get("/stickman", checkAuth, function (request, response) {
 });
 
 app.use(express.static(path.join(__dirname, "/projects")));
+
+app.get("/details/:projDir", function (req, res) {
+    console.log("details", req.url);
+    const { projDir } = req.params;
+    for (let i = 0; i < projectData.length; i++) {
+        console.log(projectData[i].dir, projDir);
+        console.log(projectData[i].dir == projDir);
+        if (projectData[i].dir == projDir) {
+            res.render("details", {
+                title: projectData[i].title,
+                dir: projDir,
+                description: projectData[i].description,
+                projectData,
+            });
+            return;
+        }
+    }
+    res.send("404");
+    // res.send("asd");
+    // find the project that matches projName in the projects array
+
+    // if no matching project is found, send 404
+
+    // res.render("description", {
+    //     project, // the one project from the list of projects that match the name in the url
+    //     projects, // the list of projects from the json file
+    // });
+});
 
 app.listen(8080);

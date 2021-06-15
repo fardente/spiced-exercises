@@ -1,22 +1,27 @@
 [
     {
         "title": "Stickman",
-        "dir": "stickman"
+        "dir": "stickman",
+        "description": "The most evolved creature nature has produced so far!"
     },
     {
         "title": "Kitty Carousel",
-        "dir": "20210521-KittyCarousel"
+        "dir": "20210521-KittyCarousel",
+        "description": "Get dizzy watching kittes!"
     },
     {
         "title": "Connect Four",
-        "dir": "20210528-ConnectFour"
+        "dir": "20210528-ConnectFour",
+        "description": "Play to win or play to lose, most of the time it will be a draw!"
     },
     {
         "title": "Ticker",
-        "dir": "ticker"
+        "dir": "ticker",
+        "description": "The hottest topics of today - all in a compact line above your site!"
     },
     {
         "title": "Ticker using jQuery",
-        "dir": "ticker-jquery"
+        "dir": "ticker-jquery",
+        "description": "The hottest topics of today - all in a compact line above your site! Now with jQuery!"
     }
 ]

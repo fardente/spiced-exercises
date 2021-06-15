@@ -1,0 +1,9 @@
+{{#each projectData}}
+    <div class="project {{#if (checkActive dir ../dir) }} activeProj{{/if}} ">
+        <a href="/details/{{dir}}" target="blank">
+             {{#if ../index}}
+                <img src="/{{dir}}/screenshot.png" alt="" />
+            {{/if}}
+            <p>{{title}}</p></a>
+    </div>
+{{/each}}

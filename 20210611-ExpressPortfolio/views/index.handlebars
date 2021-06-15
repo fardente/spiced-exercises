@@ -2,12 +2,5 @@
 <h3>{{subheading}}</h3>
 
 <div class="container">
-    {{#each projectData}}
-        <div class="project">
-
-            <a href="{{dir}}" target="blank">
-                <img src="/{{dir}}/screenshot.png" alt="" />
-                <p>{{title}}</p></a>
-        </div>
-    {{/each}}
+{{> projectlist index=true}}
 </div>
