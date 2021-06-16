@@ -65,10 +65,9 @@ function getToken(callback) {
     );
 }
 
-function getTweets(token, callback) {
+function getTweets(screenName, count, token, callback) {
     // console.log("responsebody", responseBody, responseBody["access_token"]);
-    const screenName = "QuantaMagazine",
-        count = 3;
+    // const screenName = "QuantaMagazine",
     const host = "api.twitter.com";
     const path = `/1.1/statuses/user_timeline.json?tweet_mode=extended&exclude_replies=true&trim_user=true&screen_name=${screenName}&count=${count}`;
     const query = "asd";
@@ -82,22 +81,24 @@ function getTweets(token, callback) {
 }
 
 function parseTweets(tweets, callback) {
-    tweets = tweets.map((tweet) => {
-        const text = tweet.full_text.split("https:")[0];
-        // console.log(text);
-        const url = tweet.entities.urls[0].url;
-        // console.log(url);
-        return {
-            text,
-            url,
-        };
-    });
+    tweets = tweets
+        .filter((tweet) => tweet.entities.urls.length)
+        .map((tweet) => {
+            const text = tweet.full_text.split("http")[0].trim();
+            console.log(tweet);
+            const url = tweet.entities.urls[0].url;
+            // console.log(url);
+            return {
+                text,
+                url,
+            };
+        });
     callback(tweets);
 }
 
-function getTickerItems(callback) {
+function getTickerItems(screenName, number, callback) {
     getToken((token) => {
-        getTweets(token, (tweets) => {
+        getTweets(screenName, number, token, (tweets) => {
             parseTweets(tweets, (parsedTweets) => {
                 // console.log("Parsed Tweeties", parsedTweets);
                 callback(parsedTweets);
@@ -106,6 +107,8 @@ function getTickerItems(callback) {
     });
 }
 
-getTickerItems((tweets) => {
-    console.log(tweets);
-});
+// getTickerItems((tweets) => {
+//     console.log(tweets);
+// });
+
+module.exports = getTickerItems;
