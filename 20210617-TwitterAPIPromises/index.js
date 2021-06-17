@@ -1,4 +1,3 @@
-const { rejects } = require("assert");
 const https = require("https");
 
 const { Key, Secret } = require("./secrets.json");
@@ -48,7 +47,6 @@ function makeRequest(method, host, path, requestHeaders, requestBody) {
 
 function getToken() {
     return new Promise((resolve, reject) => {
-        // console.log("encoded creds", encodeCredentials());
         const headers = {
             Authorization: `Basic ${encodeCredentials()}`,
             "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
@@ -61,6 +59,7 @@ function getToken() {
             })
             .catch((error) => {
                 console.log("error getting token", error);
+                reject("Get Token Request error", error);
             });
     });
 }
@@ -71,7 +70,6 @@ function getTweets(screenName, count, token) {
         // const screenName = "QuantaMagazine",
         const host = "api.twitter.com";
         const path = `/1.1/statuses/user_timeline.json?tweet_mode=extended&exclude_replies=true&trim_user=true&screen_name=${screenName}&count=${count}`;
-        const query = "asd";
         const headers = {
             Authorization: "Bearer " + token,
         };
@@ -87,33 +85,37 @@ function getTweets(screenName, count, token) {
 }
 
 function parseTweets(tweets) {
-    tweets = tweets
-        .filter((tweet) => tweet.entities.urls.length)
-        .map((tweet) => {
-            const text = tweet.full_text.split("http")[0].trim();
-            console.log(tweet);
-            const url = tweet.entities.urls[0].url;
-            // console.log(url);
-            return {
-                text,
-                url,
-            };
-        });
-    return tweets;
+    return new Promise((resolve, reject) => {
+        tweets = tweets
+            .filter((tweet) => tweet.entities.urls.length)
+            .map((tweet) => {
+                const text = tweet.full_text.split("http")[0].trim();
+                // console.log(tweet);
+                const url = tweet.entities.urls[0].url;
+                // console.log(url);
+                return {
+                    text,
+                    url,
+                };
+            });
+        resolve(tweets);
+    });
 }
 
 function getTickerItems(screenName, count) {
-    getToken().then((token) => {
-        console.log(token);
-        getTweets(screenName, count, token).then((tweets) => {
-            console.log(tweets);
-            return tweets;
+    return new Promise((resolve, reject) => {
+        getToken().then((token) => {
+            getTweets(screenName, count, token).then((tweets) => {
+                parseTweets(tweets).then((parsedTweets) => {
+                    resolve(parsedTweets);
+                });
+            });
         });
     });
 }
 
-// getTickerItems((tweets) => {
-//     console.log(tweets);
+// getTickerItems("heiseonline", 3).then((res) => {
+//     console.log(res);
 // });
 
 module.exports = getTickerItems;

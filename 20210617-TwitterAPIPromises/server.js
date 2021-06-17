@@ -8,8 +8,7 @@ app.use(express.static(path.join(__dirname, "ticker")));
 
 app.get("/links.json", (request, response) => {
     console.log("incoming request", request.url);
-    getTickerItems("heiseonline", 8, (tweets) => {
-        console.log(tweets.length, tweets);
+    getTickerItems("heiseonline", 8).then((tweets) => {
         response.json(tweets);
     });
 });
