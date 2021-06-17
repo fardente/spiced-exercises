@@ -46,6 +46,7 @@ function makeRequest(method, host, path, requestHeaders, requestBody) {
 }
 
 function getToken() {
+    console.log("Token was requested");
     return new Promise((resolve, reject) => {
         const headers = {
             Authorization: `Basic ${encodeCredentials()}`,
@@ -84,7 +85,7 @@ function getTweets(screenName, count, token) {
     });
 }
 
-function parseTweets(tweets) {
+function parseTweets(tweets, screenName) {
     return new Promise((resolve, reject) => {
         tweets = tweets
             .filter((tweet) => tweet.entities.urls.length)
@@ -94,7 +95,7 @@ function parseTweets(tweets) {
                 const url = tweet.entities.urls[0].url;
                 // console.log(url);
                 return {
-                    text,
+                    text: `${text} (${screenName})`,
                     url,
                 };
             });
@@ -102,20 +103,50 @@ function parseTweets(tweets) {
     });
 }
 
-function getTickerItems(screenName, count) {
-    return new Promise((resolve, reject) => {
-        getToken().then((token) => {
-            getTweets(screenName, count, token).then((tweets) => {
-                parseTweets(tweets).then((parsedTweets) => {
-                    resolve(parsedTweets);
-                });
-            });
-        });
+function getTickerItems(screenName, count, token) {
+    return getTweets(screenName, count, token).then((tweets) => {
+        return parseTweets(tweets, screenName);
     });
+    // .then((parsedTweets) => {
+    //     console.log("parsed Tweets", parsedTweets);
+    //     return parsedTweets;
+    // });
 }
+
+// function getTickerItems(screenName, count) {
+//     return getToken()
+//         .then((token) => {
+//             return getTweets(screenName, count, token);
+//         })
+//         .then((tweets) => {
+//             return parseTweets(tweets, screenName);
+//         });
+//     // .then((parsedTweets) => {
+//     //     console.log("parsed Tweets", parsedTweets);
+//     //     return parsedTweets;
+//     // });
+// }
+
+// console.log(getTickerItems("zeitonline", 3));
+
+// getTickerItems("zeitonline", 3).then((tweets) => {
+//     console.log("gettickeritems", tweets);
+// });
+
+// function getTickerItems(screenName, count) {
+//     return new Promise((resolve, reject) => {
+//         getToken().then((token) => {
+//             getTweets(screenName, count, token).then((tweets) => {
+//                 parseTweets(tweets).then((parsedTweets) => {
+//                     resolve(parsedTweets);
+//                 });
+//             });
+//         });
+//     });
+// }
 
 // getTickerItems("heiseonline", 3).then((res) => {
 //     console.log(res);
 // });
 
-module.exports = getTickerItems;
+module.exports = { getTickerItems, getToken };
