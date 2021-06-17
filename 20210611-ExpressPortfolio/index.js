@@ -115,11 +115,11 @@ function checkAuth(request, response, next) {
 
 app.get("/stickman", checkAuth, function (request, response) {
     response.sendFile(
-        path.join(__dirname, "/projects", "/stickman", "/index.html")
+        path.join(__dirname, "projects", "stickman", "index.html")
     );
 });
 
-app.use(express.static(path.join(__dirname, "/projects")));
+app.use(express.static(path.join(__dirname, "projects")));
 
 app.get("/details/:projDir", function (req, res) {
     console.log("details", req.url);

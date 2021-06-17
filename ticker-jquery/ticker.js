@@ -1,4 +1,4 @@
-$.get("/links.json", function (data) {
+$.get("./links.json", function (data) {
     var links = data;
     var container = $("#headlines");
 
