@@ -1,6 +1,6 @@
 const express = require("express");
 const path = require("path");
-const { getTickerItems, getToken } = require("./index");
+const { getTickerItems, requestToken } = require("./index");
 
 const newsSources = ["heiseonline", "TheOnion", "zeitonline"];
 
@@ -11,7 +11,8 @@ app.use(express.static(path.join(__dirname, "ticker")));
 app.get("/links.json", (request, response) => {
     console.log("incoming request", request.url);
 
-    getToken().then((token) => {
+    requestToken().then((tokenResponse) => {
+        let token = tokenResponse["access_token"];
         Promise.all(
             newsSources.map((source) => getTickerItems(source, 3, token))
         )

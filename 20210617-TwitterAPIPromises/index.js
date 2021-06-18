@@ -45,24 +45,28 @@ function makeRequest(method, host, path, requestHeaders, requestBody) {
     });
 }
 
-function getToken() {
+function requestToken() {
     console.log("Token was requested");
-    return new Promise((resolve, reject) => {
-        const headers = {
-            Authorization: `Basic ${encodeCredentials()}`,
-            "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
-        };
-        const body = "grant_type=client_credentials";
-        makeRequest("POST", "api.twitter.com", "/oauth2/token", headers, body)
-            .then((responseBody) => {
-                const token = responseBody["access_token"];
-                resolve(token);
-            })
-            .catch((error) => {
-                console.log("error getting token", error);
-                reject("Get Token Request error", error);
-            });
-    });
+    const headers = {
+        Authorization: `Basic ${encodeCredentials()}`,
+        "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
+    };
+    const body = "grant_type=client_credentials";
+    return makeRequest(
+        "POST",
+        "api.twitter.com",
+        "/oauth2/token",
+        headers,
+        body
+    );
+    // .then((responseBody) => {
+    //     const token = responseBody["access_token"];
+    //     resolve(token);
+    // })
+    // .catch((error) => {
+    //     console.log("error getting token", error);
+    //     reject("Get Token Request error", error);
+    // });
 }
 
 function getTweets(screenName, count, token) {
@@ -161,7 +165,7 @@ function getTickerItems(screenName, count, token) {
 //     console.log(res);
 // });
 
-module.exports = { getTickerItems, getToken };
+module.exports = { getTickerItems, requestToken };
 
 // function promiseTest(input) {
 //     return new Promise((resolve, reject) => {
