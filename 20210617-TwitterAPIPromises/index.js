@@ -45,7 +45,7 @@ function makeRequest(method, host, path, requestHeaders, requestBody) {
     });
 }
 
-function requestToken() {
+function getToken() {
     console.log("Token was requested");
     const headers = {
         Authorization: `Basic ${encodeCredentials()}`,
@@ -58,15 +58,9 @@ function requestToken() {
         "/oauth2/token",
         headers,
         body
-    );
-    // .then((responseBody) => {
-    //     const token = responseBody["access_token"];
-    //     resolve(token);
-    // })
-    // .catch((error) => {
-    //     console.log("error getting token", error);
-    //     reject("Get Token Request error", error);
-    // });
+    ).then((token) => {
+        return token["access_token"];
+    });
 }
 
 function getTweets(screenName, count, token) {
@@ -165,7 +159,7 @@ function getTickerItems(screenName, count, token) {
 //     console.log(res);
 // });
 
-module.exports = { getTickerItems, requestToken };
+module.exports = { getTickerItems, getToken };
 
 // function promiseTest(input) {
 //     return new Promise((resolve, reject) => {
