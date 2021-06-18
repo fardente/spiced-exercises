@@ -16,7 +16,15 @@ app.get("/links.json", (request, response) => {
             newsSources.map((source) => getTickerItems(source, 3, token))
         )
             .then((tweets) => {
-                response.json(tweets.flat());
+                const sortedTweets = tweets.flat().sort((a, b) => {
+                    if (new Date(a["createdAt"]) < new Date(b["createdAt"])) {
+                        return 1;
+                    } else {
+                        return -1;
+                    }
+                });
+                console.log(sortedTweets);
+                response.json(sortedTweets);
             })
             .catch((error) => {
                 console.log(error);

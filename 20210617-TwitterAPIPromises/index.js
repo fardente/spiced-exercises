@@ -73,9 +73,11 @@ function parseTweets(tweets, screenName) {
         .map((tweet) => {
             const text = tweet.full_text.split("http")[0].trim();
             const url = tweet.entities.urls[0].url;
+            const createdAt = tweet["created_at"];
             return {
                 text: `${text} (${screenName})`,
                 url,
+                createdAt,
             };
         });
     return tweets;
