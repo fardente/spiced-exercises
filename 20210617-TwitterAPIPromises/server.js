@@ -12,7 +12,9 @@ app.get("/links.json", (request, response) => {
     console.log("incoming request", request.url);
 
     getToken().then((token) => {
-        Promise.all(newsSources.map((x) => getTickerItems(x, 3, token)))
+        Promise.all(
+            newsSources.map((source) => getTickerItems(source, 3, token))
+        )
             .then((tweets) => {
                 response.json(tweets.flat());
             })
